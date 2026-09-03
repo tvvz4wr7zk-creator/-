@@ -48,8 +48,12 @@
       </section>
 
       <section id="schedule" class="view">
-        <div class="section-head"><div><p class="eyebrow">WEEKLY SCHEDULE</p><h2>我的一周课表</h2></div><div class="week-controls"><button id="clearCourses" class="ghost-btn">清空课表</button><button class="primary" id="addCourseBtn2">＋ 添加课程</button></div></div>
-        <div class="schedule-wrap"><div id="scheduleGrid" class="schedule-grid"></div></div>
+        <div class="section-head"><div><p class="eyebrow">本周</p><h2>日程</h2></div><div class="week-controls"><button id="clearCourses" class="ghost-btn">清空</button><button class="calendar-add" id="addCourseBtn2" aria-label="添加课程">＋</button></div></div>
+        <p class="calendar-hint">轻点空白时间，快速添加课程</p>
+        <div class="calendar-shell">
+          <div id="iosWeekHeader" class="ios-week-header"></div>
+          <div id="iosTimeGrid" class="ios-time-grid" aria-label="周课程日历"></div>
+        </div>
       </section>
 
       <section id="tasks" class="view">
