@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#f3efe7" />
+  <meta name="description" content="专为大学生日常学习设计的课表、待办与考试管理工具。" />
+  <title>拾光 · 大学生日程</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Noto+Sans+SC:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="shell">
+    <aside class="sidebar">
+      <a class="brand" href="#"><span class="brand-mark">拾</span><span>拾光</span></a>
+      <nav aria-label="主导航">
+        <button class="nav-item active" data-view="dashboard"><span>⌂</span>总览</button>
+        <button class="nav-item" data-view="schedule"><span>▦</span>我的课表</button>
+        <button class="nav-item" data-view="tasks"><span>✓</span>待办事项</button>
+      </nav>
+      <div class="sidebar-note"><span>✦</span><p>把每一天<br>过得清楚又从容</p></div>
+      <div class="profile"><div class="avatar">同</div><div><strong>大学生活</strong><small>本地私人空间</small></div></div>
+    </aside>
+
+    <main>
+      <header class="topbar">
+        <div><p class="eyebrow" id="dateText"></p><h1 id="greeting">早上好，今天也要加油</h1></div>
+        <button class="primary" id="addCourseBtn">＋ 添加课程</button>
+      </header>
+
+      <section id="dashboard" class="view active">
+        <div class="stats">
+          <article class="stat-card peach"><div><span>今日课程</span><strong id="todayCount">0</strong><small>节课</small></div><b>↗</b></article>
+          <article class="stat-card mint"><div><span>待完成</span><strong id="taskCount">0</strong><small>件事</small></div><b>✓</b></article>
+          <article class="stat-card lavender"><div><span>最近考试</span><strong id="examDays">—</strong><small>天后</small></div><b>⌁</b></article>
+        </div>
+        <div class="dashboard-grid">
+          <article class="panel today-panel">
+            <div class="panel-title"><div><p>今日安排</p><h2 id="todayTitle">今天的课程</h2></div><button class="text-btn" data-go="schedule">查看完整课表 →</button></div>
+            <div id="todayCourses" class="timeline"></div>
+          </article>
+          <article class="panel task-panel">
+            <div class="panel-title"><div><p>专注清单</p><h2>近期待办</h2></div><button class="icon-btn" id="quickTaskBtn" aria-label="添加待办">＋</button></div>
+            <div id="taskList" class="task-list"></div>
+            <button class="wide-btn" data-go="tasks">管理全部待办</button>
+          </article>
+        </div>
+        <article class="quote"><span>“</span><p>不必匆忙，按自己的节奏，把重要的事情一件件做好。</p><small>今日寄语</small></article>
+      </section>
+
+      <section id="schedule" class="view">
+        <div class="section-head"><div><p class="eyebrow">WEEKLY SCHEDULE</p><h2>我的一周课表</h2></div><div class="week-controls"><button id="clearCourses" class="ghost-btn">清空课表</button><button class="primary" id="addCourseBtn2">＋ 添加课程</button></div></div>
+        <div class="schedule-wrap"><div id="scheduleGrid" class="schedule-grid"></div></div>
+      </section>
+
+      <section id="tasks" class="view">
+        <div class="section-head"><div><p class="eyebrow">TASKS & DEADLINES</p><h2>待办与考试</h2></div><button class="primary" id="addTaskBtn">＋ 新建待办</button></div>
+        <div class="task-columns">
+          <article class="panel"><div class="panel-title"><h2>进行中</h2><span class="pill" id="activeTaskBadge">0</span></div><div id="allTasks" class="task-list large"></div></article>
+          <article class="panel"><div class="panel-title"><h2>即将到来</h2><span class="pill">DDL</span></div><div id="deadlineList" class="deadlines"></div></article>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <dialog id="courseDialog">
+    <form method="dialog" id="courseForm">
+      <div class="dialog-head"><div><p class="eyebrow">NEW COURSE</p><h2>添加一门课程</h2></div><button value="cancel" class="close-btn" aria-label="关闭">×</button></div>
+      <label>课程名称<input name="name" required maxlength="20" placeholder="例如：高等数学" /></label>
+      <div class="form-row"><label>星期<select name="day" required><option value="1">周一</option><option value="2">周二</option><option value="3">周三</option><option value="4">周四</option><option value="5">周五</option><option value="6">周六</option><option value="0">周日</option></select></label><label>颜色<select name="color"><option value="coral">珊瑚橙</option><option value="sage">鼠尾草绿</option><option value="blue">雾霾蓝</option><option value="purple">淡紫</option><option value="gold">暖金</option></select></label></div>
+      <div class="form-row"><label>开始时间<input type="time" name="start" value="08:00" required /></label><label>结束时间<input type="time" name="end" value="09:40" required /></label></div>
+      <label>地点<input name="location" maxlength="20" placeholder="例如：教学楼 A203" /></label>
+      <label>任课老师<input name="teacher" maxlength="20" placeholder="选填" /></label>
+      <div class="dialog-actions"><button value="cancel" class="ghost-btn">取消</button><button value="default" class="primary" id="saveCourse">保存课程</button></div>
+    </form>
+  </dialog>
+
+  <dialog id="taskDialog">
+    <form method="dialog" id="taskForm">
+      <div class="dialog-head"><div><p class="eyebrow">NEW TASK</p><h2>记录一件待办</h2></div><button value="cancel" class="close-btn">×</button></div>
+      <label>待办内容<input name="title" required maxlength="40" placeholder="例如：完成建模作业" /></label>
+      <div class="form-row"><label>截止日期<input type="date" name="date" required /></label><label>类型<select name="type"><option value="作业">作业</option><option value="考试">考试</option><option value="社团">社团</option><option value="生活">生活</option></select></label></div>
+      <label>关联课程<input name="course" maxlength="20" placeholder="选填" /></label>
+      <div class="dialog-actions"><button value="cancel" class="ghost-btn">取消</button><button value="default" class="primary" id="saveTask">加入清单</button></div>
+    </form>
+  </dialog>
+  <div id="toast" role="status"></div>
+  <script src="app.js"></script>
+</body>
+</html>
